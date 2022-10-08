@@ -1,13 +1,12 @@
-import CategoryList from "./components/CategoryList/CategoryList.component";
-import CategoryJson from "./assets/categories.json"
+import { Routes, Route } from 'react-router-dom'
+
+import Home from "./routes/home/home.component";
 
 const App = () => {
-  const categories = CategoryJson.categories;
-
   return (
-    <div>
-      <CategoryList categories={categories} />
-    </div>
+    <Routes>
+      <Route path='/home' element={<Home />} />
+    </Routes>
   );
 };
 
