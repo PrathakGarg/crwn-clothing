@@ -1,16 +1,11 @@
 import { initializeApp } from "firebase/app";
-import { 
-    getAuth,
-    // signInWithRedirect,
-    signInWithPopup,
-    GoogleAuthProvider 
+import {
+  getAuth,
+  signInWithRedirect,
+  signInWithPopup,
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
 } from "firebase/auth";
-import { 
-    getFirestore,
-    doc,
-    getDoc,
-    setDoc,
-} from 'firebase/firestore'
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -22,41 +17,26 @@ const firebaseConfig = {
   projectId: "crwn-clothing-db-75598",
   storageBucket: "crwn-clothing-db-75598.appspot.com",
   messagingSenderId: "830848804920",
-  appId: "1:830848804920:web:f897138e70d56032979ecd"
+  appId: "1:830848804920:web:f897138e70d56032979ecd",
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
 
-const provider = new GoogleAuthProvider();
-
-provider.setCustomParameters({
-    "prompt": "select_account"
-})
+const googleProvider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({
+  prompt: "select_account",
+});
 
 export const auth = getAuth(firebaseApp);
-export const signInWithGooglePopup = () => signInWithPopup(auth, provider)
 
-export const db = getFirestore();
+export const signInWithGooglePopup = () =>
+  signInWithPopup(auth, googleProvider);
+  
+export const signInWithGoogleRedirect = () =>
+  signInWithRedirect(auth, googleProvider);
 
-export const createUserDocumentFromAuth = async (userAuth) => {
-    const userDocRef = doc(db, 'users', userAuth.uid);
-    const userSnapshot = await getDoc(userDocRef);
+export const createAuthUserWithEmailAndPassword = async (email, password) => {
+  if (!email || !password) return;
 
-    if (!userSnapshot.exists()) {
-        const { displayName, email } = userAuth;
-        const created_at = new Date();
-
-        try {
-            await setDoc(userDocRef, {
-                displayName, 
-                email,
-                created_at
-            });
-        }
-        catch(error) {
-            console.log("Error creating user", error.message);
-        }
-    }
-
-    return userDocRef;
+  return await createUserWithEmailAndPassword(auth, email, password);
 }

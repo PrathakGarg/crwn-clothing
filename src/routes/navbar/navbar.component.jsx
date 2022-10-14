@@ -19,6 +19,9 @@ const Navbar = () => {
           <Link className="nav-link" to={"signin"}>
             Signin
           </Link>
+          {/* <Link className="nav-link" to={"signup"}>
+            Signup
+          </Link> */}
         </div>
       </div>
       <Outlet />
