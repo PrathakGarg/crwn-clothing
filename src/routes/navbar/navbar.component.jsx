@@ -14,8 +14,14 @@ const Navbar = () => {
         </Link>
         <div className="nav-links-container">
           <Link className="nav-link" to={"shop"}>
-            SHOP
+            Shop
           </Link>
+          <Link className="nav-link" to={"auth"}>
+            Signin
+          </Link>
+          {/* <Link className="nav-link" to={"signup"}>
+            Signup
+          </Link> */}
         </div>
       </div>
       <Outlet />

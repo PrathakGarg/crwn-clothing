@@ -1,0 +1,14 @@
+.sign-in-container {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+
+    .button-div {
+        display: flex;
+        gap: 20px;
+    }
+
+    h2 {
+        margin: 10px 0;
+    }
+}
