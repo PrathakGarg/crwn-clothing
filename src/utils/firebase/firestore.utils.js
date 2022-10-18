@@ -3,12 +3,10 @@ import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
 export const db = getFirestore();
 
 export const createUserDocumentFromAuth = async (userAuth, additionalInfo = {}) => {
-  if (!userAuth) return;
+  const getUser = getUserDocumentFromAuth(userAuth);
+  const { userDocRef, exists } = await getUser;
 
-  const userDocRef = doc(db, "users", userAuth.uid);
-  const userSnapshot = await getDoc(userDocRef);
-
-  if (!userSnapshot.exists()) {
+  if (!exists) {
     const { displayName, email } = userAuth;
     const created_at = new Date();
 
@@ -19,9 +17,30 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInfo = {}) 
         created_at, 
         ...additionalInfo});
     } catch (error) {
-      console.log("Error creating user", error.message);
+      console.log("Error creating user:", error.message);
     }
   }
 
   return userDocRef;
 };
+
+export const getUserDocumentFromAuth = async (userAuth) => {
+  const respObject = {
+    userDocRef: null,
+    exists: false
+  }
+
+  if (!userAuth) return;
+
+  const userDocRef = doc(db, "users", userAuth.uid);
+  const userSnapshot = await getDoc(userDocRef);
+
+  respObject.userDocRef = userDocRef;
+
+  if (!userSnapshot.exists()) {
+    return respObject
+  };
+
+  respObject.exists = true;
+  return respObject;
+}

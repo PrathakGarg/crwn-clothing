@@ -7,7 +7,7 @@ import Button from "../Button/button.component";
 
 import "./sign-up-form.styles.scss"
 
-const defaultValues = {
+const defaultFormFields = {
   displayName: "",
   email: "",
   password: "",
@@ -15,8 +15,12 @@ const defaultValues = {
 };
 
 const SignUp = () => {
-  const [formFields, setFormFields] = useState(defaultValues);
+  const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
+
+  const resetFormFields = () => {
+    setFormFields(defaultFormFields)
+  }
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -39,14 +43,10 @@ const SignUp = () => {
     }
 
     try {
-      const { user } = await createAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
-      const userDocRef = await createUserDocumentFromAuth(user, {
-        displayName,
-      });
-      console.log(userDocRef);
+      const { user } = await createAuthUserWithEmailAndPassword(email, password);
+      await createUserDocumentFromAuth(user, {displayName});
+
+      resetFormFields();
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         alert("Email already in use");
@@ -60,7 +60,7 @@ const SignUp = () => {
 
   return (
     <div className="sign-up-container">
-      <h2>Don't have an account?</h2>
+      <h2>I do not have an account</h2>
       <span>Sign Up with Email and Password</span>
       <form onSubmit={handleSubmit}>
         <FormInput
