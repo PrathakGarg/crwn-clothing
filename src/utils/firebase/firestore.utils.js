@@ -36,11 +36,23 @@ export const getUserDocumentFromAuth = async (userAuth) => {
   const userSnapshot = await getDoc(userDocRef);
 
   respObject.userDocRef = userDocRef;
+  respObject.exists = userSnapshot.exists();
 
-  if (!userSnapshot.exists()) {
-    return respObject
-  };
-
-  respObject.exists = true;
   return respObject;
+}
+
+export const getUserDetails = async (userDocRef) => {
+  let userData = {
+    created_at: null,
+    displayName: null,
+    email: null,
+    exists: false
+  }
+
+  const userSnapshot = await getDoc(userDocRef);
+  const data = userSnapshot.data()
+  
+  userData = {...userData, ...data, exists: userSnapshot.exists()}
+
+  return userData;
 }

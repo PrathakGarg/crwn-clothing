@@ -6,6 +6,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   GoogleAuthProvider,
+  signOut,
 } from "firebase/auth";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -44,3 +45,5 @@ export const createAuthUserWithEmailAndPassword = async (email, password) => {
 
   return await createUserWithEmailAndPassword(auth, email, password);
 }
+
+export const signOutUser = () => signOut(auth)

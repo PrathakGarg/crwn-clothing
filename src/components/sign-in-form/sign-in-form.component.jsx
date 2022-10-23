@@ -1,9 +1,8 @@
 import FormInput from "../form-input/form-input.component";
 import Button from "../Button/button.component";
 
-import { useState } from "react";
+import { useState, useContext } from "react";
 
-import "./sign-in-form.styles.scss";
 import {
   signInWithEmailAndPasswordCustom,
   signInWithGooglePopup,
@@ -12,6 +11,9 @@ import {
   createUserDocumentFromAuth,
   getUserDocumentFromAuth,
 } from "../../utils/firebase/firestore.utils";
+import { UserContext } from "../../contexts/user.context";
+
+import "./sign-in-form.styles.scss";
 
 const defaultFormFields = {
   email: "",
@@ -22,16 +24,21 @@ const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
+  const { setCurrentUser } = useContext(UserContext);
+
   const loginGooglePopup = async () => {
-    const response = await signInWithGooglePopup();
-    const { userDocRef } = await createUserDocumentFromAuth(response.user);
-    
-    console.log(userDocRef);
+    const { user } = await signInWithGooglePopup();
+    const { userDocRef } = await createUserDocumentFromAuth(user);
+
+    setCurrentUser(user);
   };
 
   const loginEmailPassword = async (email, password) => {
-      const response = await signInWithEmailAndPasswordCustom(email, password);
-      const { userDocRef } = await getUserDocumentFromAuth(response.user);
+      const { user } = await signInWithEmailAndPasswordCustom(email, password);
+      const { userDocRef, exists } = await getUserDocumentFromAuth(user);
+
+      if (exists) setCurrentUser(user);
+
       return userDocRef;
   };
 
@@ -53,7 +60,6 @@ const SignInForm = () => {
 
     try {
       const userDocRef = await loginEmailPassword(email, password);
-      console.log(userDocRef);
 
       resetFormFields();
     } catch (error) {
