@@ -1,12 +1,10 @@
 import CategoryList from "../../components/CategoryList/CategoryList.component";
-import Data from "../../assets/data.json";
+import Categories from "../../assets/data.json";
 
 const Home = () => {
-  const categories = Data.categories;
-
   return (
     <div>
-      <CategoryList categories={categories} />
+      <CategoryList categories={Categories} />
     </div>
   );
 };
