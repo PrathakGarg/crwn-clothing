@@ -1,7 +1,7 @@
 .cart-dropdown-container {
     position: absolute;
-    width: 280px;
-    height: 350px;
+    width: 320px;
+    height: 400px;
     display: flex;
     flex-direction: column;
     padding: 20px;
@@ -17,16 +17,16 @@
     }
   
     .cart-items {
-      height: 240px;
+      height: 280px;
       display: flex;
       flex-direction: column;
       overflow-y: scroll;
       scrollbar-width: none;
     }
 
-    .cart-items::-webkit-scrollbar {
-        display: none;
-    }
+    // .cart-items::-webkit-scrollbar {
+    //     display: none;
+    // }
   
     button {
       margin-top: auto;
