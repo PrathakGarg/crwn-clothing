@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 
-export const DropdownContext = createContext({
+export const CartContext = createContext({
   toggled: false,
   setToggle: () => {},
   cartItems: [],
@@ -8,7 +8,7 @@ export const DropdownContext = createContext({
   cartCount: 0
 });
 
-export const DropdownProvider = ({ children }) => {
+export const CartProvider = ({ children }) => {
   const [toggle, setToggle] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [cartCount, setCartCount] = useState(0)
@@ -27,11 +27,32 @@ export const DropdownProvider = ({ children }) => {
     setCartItems([...cartItems])
   }
 
-  const value = { toggle, setToggle, cartItems, addItemToCart, cartCount };
+  const removeItemFromCart = (product) => {
+    const item = cartItems.find(item => item.id === product.id)
+    const ind = cartItems.indexOf(item)
+
+    if (item) {
+      item.quantity--
+      if (item.quantity === 0) cartItems.splice(ind, 1)
+    }
+
+    setCartItems([...cartItems])
+  }
+
+  const removeProduct = (product) => {
+    const item = cartItems.find(item => item.id === product.id)
+    const ind = cartItems.indexOf(item)
+
+    if (item) cartItems.splice(ind, 1)
+
+    setCartItems([...cartItems])
+  }
+
+  const value = { toggle, setToggle, cartItems, addItemToCart, removeItemFromCart, removeProduct, cartCount };
 
   return (
-    <DropdownContext.Provider value={value}>
+    <CartContext.Provider value={value}>
       {children}
-    </DropdownContext.Provider>
+    </CartContext.Provider>
   );
 };

@@ -6,14 +6,14 @@ import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component
 
 import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
 import { UserContext } from "../../contexts/user.context";
-import { DropdownContext } from "../../contexts/cart-dropdown.context";
+import { CartContext } from "../../contexts/cart-dropdown.context";
 import { signOutUser } from "../../utils/firebase/firebase.utils";
 
 import "./navbar.styles.scss";
 
 const Navbar = () => {
   const { currentUser } = useContext(UserContext);
-  const { toggle } = useContext(DropdownContext)
+  const { toggle } = useContext(CartContext)
 
   return (
     <Fragment>
