@@ -48,11 +48,8 @@ export const CartProvider = ({ children }) => {
 
   const removeProduct = (product) => {
     const item = cartItems.find(item => item.id === product.id)
-    const ind = cartItems.indexOf(item)
 
-    if (item) cartItems.splice(ind, 1)
-
-    setCartItems([...cartItems])
+    if (item) setCartItems([...cartItems.filter((cartItem) => cartItem.id !== product.id)])
   }
 
   const value = { toggle, setToggle, cartItems, addItemToCart, removeItemFromCart, removeProduct, cartCount, cartTotal };
