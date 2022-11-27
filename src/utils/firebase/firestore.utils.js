@@ -1,10 +1,13 @@
-import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
+import { 
+  doc, 
+  getDoc, 
+  getFirestore, 
+  setDoc } from "firebase/firestore";
 
 export const db = getFirestore();
 
 export const createUserDocumentFromAuth = async (userAuth, additionalInfo = {}) => {
-  const getUser = getUserDocumentFromAuth(userAuth);
-  const { userDocRef, exists } = await getUser;
+  const { userDocRef, exists } = await getUserDocumentFromAuth(userAuth);
 
   if (!exists) {
     const { displayName, email } = userAuth;
