@@ -7,7 +7,7 @@ const BUTTON_CLASSES = {
 
 const Button = ({children, buttonType, ...props}) => (
     <button 
-        className={`button-container ${BUTTON_CLASSES[buttonType]}`}
+        className={`button-container ${buttonType ? BUTTON_CLASSES[buttonType] : "default"}`}
         {...props}
     >
         {children}
