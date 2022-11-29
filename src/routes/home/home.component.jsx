@@ -1,10 +1,10 @@
-import CategoryList from "../../components/CategoryList/CategoryList.component";
+import Directory from "../../components/directory/directory.component";
 import Categories from "../../assets/data.json";
 
 const Home = () => {
   return (
     <div>
-      <CategoryList categories={Categories} />
+      <Directory categories={Categories} />
     </div>
   );
 };
