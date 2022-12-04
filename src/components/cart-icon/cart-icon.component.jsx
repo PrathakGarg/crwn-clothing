@@ -5,9 +5,9 @@ import { CartContext } from "../../contexts/cart-dropdown.context";
 import { CartIconContainer, ShoppingIcon, ItemCount } from "./cart-icon.styles.jsx";
 
 const CartIcon = () => {
-  const { toggle, setToggle, cartCount } = useContext(CartContext);
+  const { toggled, setToggle, cartCount } = useContext(CartContext);
 
-  const onClickHandler = () => setToggle(!toggle)
+  const onClickHandler = () => setToggle(!toggled)
 
   return (
     <CartIconContainer onClick={onClickHandler}>

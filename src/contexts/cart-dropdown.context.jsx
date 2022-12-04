@@ -71,7 +71,7 @@ const INITIAL_STATE = {
 }
 
 export const CartProvider = ({ children }) => {
-  const [{ toggle, cartItems, cartCount, cartTotal }, dispatch] = useReducer(cartReducer, INITIAL_STATE)
+  const [{ toggled, cartItems, cartCount, cartTotal }, dispatch] = useReducer(cartReducer, INITIAL_STATE)
 
   const setToggle = value => {dispatch({type: CART_ACTION_TYPES.SET_VISIBILITY, payload: value})}
 
@@ -101,7 +101,7 @@ export const CartProvider = ({ children }) => {
     updateCartItems(newCartItems)
   }
 
-  const value = { toggle, setToggle, cartItems, addItemToCart, removeItemFromCart, removeProduct, cartCount, cartTotal };
+  const value = { toggled, setToggle, cartItems, addItemToCart, removeItemFromCart, removeProduct, cartCount, cartTotal };
 
   return (
     <CartContext.Provider value={value}>

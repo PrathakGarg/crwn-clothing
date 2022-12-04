@@ -13,7 +13,7 @@ import { NavbarContainer, LogoContainer, NavLinks, NavLink } from "./navbar.styl
 
 const Navbar = () => {
   const { currentUser } = useContext(UserContext);
-  const { toggle } = useContext(CartContext)
+  const { toggled } = useContext(CartContext)
 
   return (
     <Fragment>
@@ -41,7 +41,7 @@ const Navbar = () => {
           <CartIcon />
         </NavLinks>
 
-        {toggle && <CartDropdown />}
+        {toggled && <CartDropdown />}
       </NavbarContainer>
       <Outlet />
     </Fragment>
