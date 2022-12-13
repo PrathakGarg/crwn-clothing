@@ -6,18 +6,18 @@ import CategoriesPreview from "../categories-preview/categories-preview.componen
 import Category from "../category/category.component";
 
 import { getCollectionAndDocuments } from "../../utils/firebase/firestore.utils";
-import { setCategoriesMap } from "../../store/categories/categories.action";
+import { setCategoriesArray } from "../../store/categories/categories.action";
 
 const Shop = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const getCategoriesMap = async () => {
-      const categoriesMap = await getCollectionAndDocuments('categories');
-      dispatch(setCategoriesMap(categoriesMap));
+    const getCategoriesArray = async () => {
+      const categoriesArray = await getCollectionAndDocuments('categories');
+      dispatch(setCategoriesArray(categoriesArray));
     }
 
-    getCategoriesMap();
+    getCategoriesArray();
   }, [dispatch])
 
   return (
