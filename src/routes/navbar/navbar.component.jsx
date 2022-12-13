@@ -9,11 +9,12 @@ import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
 
 import { CartContext } from "../../contexts/cart-dropdown.context";
 import { signOutUser } from "../../utils/firebase/firebase.utils";
+import { selectCurrentUser } from "../../store/user/user.selector";
 
 import { NavbarContainer, LogoContainer, NavLinks, NavLink } from "./navbar.styles.jsx";
 
 const Navbar = () => {
-  const currentUser = useSelector((state) => state.user.currentUser)
+  const currentUser = useSelector(selectCurrentUser)
   const { toggled } = useContext(CartContext)
 
   return (
