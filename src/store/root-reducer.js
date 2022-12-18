@@ -9,7 +9,7 @@ import { cartReducer } from "./cart/cart.reducer";
 const rootPersistConfig = {
     key: "root",
     storage,
-    blacklist: ["user", "cart"],
+    blacklist: ["user", "cart", "categories"],
 };
 
 const cartPersistConfig = {
@@ -18,9 +18,15 @@ const cartPersistConfig = {
     blacklist: ["toggled"],
 }
 
+const categoriesPersistConfig = {
+    key: "categories",
+    storage,
+    blacklist: ["isLoading", "error"]
+}
+
 export const rootReducer = combineReducers({
     user: userReducer,
-    categories: categoriesReducer,
+    categories: persistReducer(categoriesPersistConfig, categoriesReducer),
     cart: persistReducer(cartPersistConfig, cartReducer),
 })
 

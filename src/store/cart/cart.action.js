@@ -1,5 +1,7 @@
 import { CART_ACTION_TYPES } from "./cart.types";
 
+import { createAction } from "../../utils/reducer/reducer.utils";
+
 const addItemCart = (cartItems, product) => {
   const item = cartItems.find((item) => item.id === product.id);
 
@@ -29,22 +31,22 @@ const clearProduct = (cartItems, product) => {
   return [...cartItems];
 };
 
-export const setToggle = (value) => ({
-  type: CART_ACTION_TYPES.SET_VISIBILITY,
-  payload: value,
-});
+export const setToggle = (value) => createAction(
+  CART_ACTION_TYPES.SET_VISIBILITY,
+  value
+)
 
 export const addItemToCart = (cartItems, product) => {
   const newCartItems = addItemCart(cartItems, product);
-  return { type: CART_ACTION_TYPES.UPDATE_CART_ITEMS, payload: newCartItems };
+  return createAction(CART_ACTION_TYPES.UPDATE_CART_ITEMS, newCartItems)
 };
 
 export const removeItemFromCart = (cartItems, product) => {
   const newCartItems = removeItemCart(cartItems, product);
-  return { type: CART_ACTION_TYPES.UPDATE_CART_ITEMS, payload: newCartItems };
+  return createAction(CART_ACTION_TYPES.UPDATE_CART_ITEMS, newCartItems)
 };
 
 export const removeProduct = (cartItems, product) => {
   const newCartItems = clearProduct(cartItems, product);
-  return { type: CART_ACTION_TYPES.UPDATE_CART_ITEMS, payload: newCartItems };
+  return createAction(CART_ACTION_TYPES.UPDATE_CART_ITEMS, newCartItems)
 };
