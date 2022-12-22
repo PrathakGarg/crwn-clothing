@@ -28,7 +28,9 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInfo = {}) 
     }
   }
 
-  return userDocRef;
+  const userSnapshot = await getDoc(userDocRef);
+
+  return userSnapshot;
 };
 
 export const getUserDocumentFromAuth = async (userAuth) => {

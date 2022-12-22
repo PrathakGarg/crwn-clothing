@@ -34,19 +34,33 @@ export const auth = getAuth(firebaseApp);
 
 export const signInWithGooglePopup = () =>
   signInWithPopup(auth, googleProvider);
-  
+
 export const signInWithGoogleRedirect = () =>
   signInWithRedirect(auth, googleProvider);
 
-export const signInWithEmailAndPasswordCustom = async (email, password) => 
+export const signInWithEmailAndPasswordCustom = async (email, password) =>
   signInWithEmailAndPassword(auth, email, password);
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return;
 
   return await createUserWithEmailAndPassword(auth, email, password);
-}
+};
 
-export const signOutUser = () => signOut(auth)
+export const signOutUser = () => signOut(auth);
 
-export const authStateChangedListener = (callback) => onAuthStateChanged(auth, callback)
+export const authStateChangedListener = (callback) =>
+  onAuthStateChanged(auth, callback);
+
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      (userAuth) => {
+        unsubscribe();
+        resolve(userAuth);
+      },
+      reject
+    );
+  });
+};
