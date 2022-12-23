@@ -9,7 +9,7 @@ import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
 
 import { selectCurrentUser } from "../../store/user/user.selector";
 import { selectToggleState } from "../../store/cart/cart.selector";
-import { signOut } from "../../store/user/user.action";
+import { signOutStart } from "../../store/user/user.action";
 
 import { NavbarContainer, LogoContainer, NavLinks, NavLink } from "./navbar.styles.jsx";
 
@@ -19,7 +19,7 @@ const Navbar = () => {
   const currentUser = useSelector(selectCurrentUser)
   const toggled = useSelector(selectToggleState);
 
-  const onSignOutHandler = () => {dispatch(signOut())}
+  const onSignOutHandler = () => {dispatch(signOutStart())}
 
   return (
     <Fragment>
