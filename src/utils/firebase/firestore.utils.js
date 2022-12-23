@@ -1,14 +1,12 @@
 import { 
   doc, 
-  getDoc, 
-  getFirestore, 
+  getDoc,
   setDoc,
   collection,
   writeBatch,
   query,
   getDocs } from "firebase/firestore";
-
-export const db = getFirestore();
+  import { db } from "./firebase.utils";
 
 export const createUserDocumentFromAuth = async (userAuth, additionalInfo = {}) => {
   const { userDocRef, exists } = await getUserDocumentFromAuth(userAuth);
@@ -28,7 +26,9 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInfo = {}) 
     }
   }
 
-  return userDocRef;
+  const userSnapshot = await getDoc(userDocRef);
+
+  return userSnapshot;
 };
 
 export const getUserDocumentFromAuth = async (userAuth) => {
