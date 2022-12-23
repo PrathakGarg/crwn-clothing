@@ -1,21 +1,25 @@
 import { Fragment } from "react";
 import { Outlet } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import CartIcon from "../../components/cart-icon/cart-icon.component";
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
 
 import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
 
-import { signOutUser } from "../../utils/firebase/firebase.utils";
 import { selectCurrentUser } from "../../store/user/user.selector";
 import { selectToggleState } from "../../store/cart/cart.selector";
+import { signOut } from "../../store/user/user.action";
 
 import { NavbarContainer, LogoContainer, NavLinks, NavLink } from "./navbar.styles.jsx";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+
   const currentUser = useSelector(selectCurrentUser)
   const toggled = useSelector(selectToggleState);
+
+  const onSignOutHandler = () => {dispatch(signOut())}
 
   return (
     <Fragment>
@@ -29,7 +33,7 @@ const Navbar = () => {
             Shop
           </NavLink>
           {currentUser ? (
-            <NavLink as="span" onClick={signOutUser}>
+            <NavLink as="span" onClick={onSignOutHandler}>
               Signout
             </NavLink>
           ) : (
