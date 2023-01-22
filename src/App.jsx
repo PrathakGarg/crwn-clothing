@@ -8,6 +8,7 @@ import Shop from "./routes/shop/shop.component";
 import Authentication from "./routes/authentication/authentication.component";
 import Checkout from "./routes/checkout/checkout.component";
 import Support from "./routes/support/support.component";
+import TOS from "./routes/tos/tos.component";
 
 import { checkUserSession } from "./store/user/user.action";
 
@@ -28,6 +29,7 @@ const App = () => {
         <Route path="auth" element={<Authentication />} />
         <Route path="checkout" element={<Checkout />} />
         <Route path="support" element={<Support />} />
+        <Route path="terms-of-service" element={<TOS />} />
         {/* <Route path='signup' element={<SignUp />} /> */}
       </Route>
     </Routes>
