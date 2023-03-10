@@ -11,7 +11,7 @@ import Support from "./routes/support/support.component";
 import TOS from "./routes/tos/tos.component";
 import Privacy from "./routes/privacy/privacy.component";
 
-import { checkUserSession } from "./store/user/user.action";
+import { checkUserSession } from "./store/user/user.action.ts";
 
 // import SignUp from './routes/sign-up/sign-up.component';
 

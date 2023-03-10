@@ -10,7 +10,6 @@ import {
 import { User } from "firebase/auth";
 
 import { db } from "./firebase.utils";
-import { Category } from "../../store/categories/categories.types";
 
 export type UserDocObject = {
   userDocRef: DocumentReference,
@@ -99,12 +98,12 @@ export const addCollectionAndDocuments = async<T extends ObjectToAdd> (collectio
   console.log("done");
 }
 
-export const getCollectionAndDocuments = async (collectionKey: string): Promise<Category[]> => {
+export const getCollectionAndDocuments = async<T extends ObjectToAdd> (collectionKey: string): Promise<T[]> => {
   const collectionRef = collection(db, collectionKey)
   const q = query(collectionRef);
 
   const querySnapshot = await getDocs(q);
-  const categoriesArray = querySnapshot.docs.map((docSnapshot) => docSnapshot.data() as Category)
+  const categoriesArray = querySnapshot.docs.map((docSnapshot) => docSnapshot.data() as T)
   
   return categoriesArray;
 }

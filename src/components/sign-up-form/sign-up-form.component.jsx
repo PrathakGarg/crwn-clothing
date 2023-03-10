@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import FormInput from "../form-input/form-input.component";
 import Button from "../Button/button.component";
 
-import { signUpStart } from "../../store/user/user.action";
+import { signUpStart } from "../../store/user/user.action.ts";
 
 import "./sign-up-form.styles.scss";
 

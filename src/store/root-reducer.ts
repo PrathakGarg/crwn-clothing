@@ -1,24 +1,25 @@
 import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
-import { persistReducer } from "redux-persist";
+import { PersistConfig, persistReducer } from "redux-persist";
 
 import { userReducer } from "./user/user.reducer";
-import { categoriesReducer } from "./categories/categories.reducer";
-import { cartReducer } from "./cart/cart.reducer";
+import { categoriesReducer, CategoriesState } from "./categories/categories.reducer";
+import { cartReducer, CartState } from "./cart/cart.reducer";
+import { RootState } from "./store";
 
-const rootPersistConfig = {
+const rootPersistConfig: PersistConfig<RootState> & { blacklist: (keyof RootState)[] } = {
     key: "root",
     storage,
     blacklist: ["user", "cart", "categories"],
 };
 
-const cartPersistConfig = {
+const cartPersistConfig: PersistConfig<CartState> & { blacklist: (keyof CartState)[] } = {
     key: "cart",
     storage,
     blacklist: ["toggled"],
 }
 
-const categoriesPersistConfig = {
+const categoriesPersistConfig: PersistConfig<CategoriesState> & { blacklist: (keyof CategoriesState)[] } = {
     key: "categories",
     storage,
     blacklist: ["isLoading", "error"]

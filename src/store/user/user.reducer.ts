@@ -4,12 +4,12 @@ import { googleSignInStart, emailSignInStart, signUpStart, signOutStart, signInS
 import { User } from "./user.types";
 
 export type UserState = {
-  currentUser: User | null
-  isLoading: boolean
-  error: Error | null
+  readonly currentUser: User | null
+  readonly isLoading: boolean
+  readonly error: Error | null
 }
 
-const INITIAL_STATE = {
+const INITIAL_STATE: UserState = {
   currentUser: null,
   isLoading: false,
   error: null

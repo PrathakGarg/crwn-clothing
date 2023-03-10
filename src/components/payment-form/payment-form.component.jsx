@@ -4,8 +4,8 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 
 import { BUTTON_CLASSES } from "../Button/button.component";
 
-import { selectCurrentUser } from "../../store/user/user.selector"
-import { selectCartTotal } from "../../store/cart/cart.selector"
+import { selectCurrentUser } from "../../store/user/user.selector.ts"
+import { selectCartTotal } from "../../store/cart/cart.selector.ts"
 
 import { PaymentFormContainer, FormContainer, PaymentButton } from "./payment-form.styles";
 

@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import SignUpForm from "../../components/sign-up-form/sign-up-form.component";
 import SignInForm from "../../components/sign-in-form/sign-in-form.component";
 
-import { selectCurrentUser } from "../../store/user/user.selector";
+import { selectCurrentUser } from "../../store/user/user.selector.ts";
 
 import "./authentication.styles.scss"
 

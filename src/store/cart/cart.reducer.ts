@@ -4,11 +4,11 @@ import { CartItem } from "./cart.types";
 import { setToggle, updateCart } from "./cart.action";
 
 export type CartState = {
-  toggled: boolean
-  cartItems: CartItem[]
+  readonly toggled: boolean
+  readonly cartItems: CartItem[]
 }
 
-const CART_INITIAL_STATE = {
+const CART_INITIAL_STATE: CartState = {
   toggled: false,
   cartItems: [] as CartItem[],
 };
