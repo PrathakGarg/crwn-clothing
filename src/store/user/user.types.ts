@@ -1,3 +1,5 @@
+import { UserData } from "../../utils/firebase/firestore.utils"
+
 export enum USER_ACTION_TYPES {
     SET_CURRENT_USER = "user/SET_CURRENT_USER",
     CHECK_USER_SESSION = "user/CHECK_USER_SESSION",
@@ -19,3 +21,5 @@ export type SignInCredentials = {
 }
 
 export type SignUpCredentials = SignInCredentials & { additionalInfo?: any }
+
+export type User = UserData & { id: string }

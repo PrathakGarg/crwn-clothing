@@ -1,9 +1,10 @@
 import { AnyAction } from "redux";
 
 import { googleSignInStart, emailSignInStart, signUpStart, signOutStart, signInSuccess, signOutSuccess, signInFailed, signOutFailed, signUpFailed } from "./user.action";
+import { User } from "./user.types";
 
 export type UserState = {
-  currentUser: any | null
+  currentUser: User | null
   isLoading: boolean
   error: Error | null
 }

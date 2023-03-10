@@ -8,6 +8,8 @@ import {
   GoogleAuthProvider,
   signOut,
   onAuthStateChanged,
+  User,
+  NextOrObserver
 } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
@@ -40,10 +42,10 @@ export const signInWithGooglePopup = () =>
 export const signInWithGoogleRedirect = () =>
   signInWithRedirect(auth, googleProvider);
 
-export const signInWithEmailAndPasswordCustom = async (email, password) =>
+export const signInWithEmailAndPasswordCustom = async (email: string, password: string) =>
   signInWithEmailAndPassword(auth, email, password);
 
-export const createAuthUserWithEmailAndPassword = async (email, password) => {
+export const createAuthUserWithEmailAndPassword = async (email: string, password: string) => {
   if (!email || !password) return;
 
   return await createUserWithEmailAndPassword(auth, email, password);
@@ -51,10 +53,10 @@ export const createAuthUserWithEmailAndPassword = async (email, password) => {
 
 export const signOutUser = () => signOut(auth);
 
-export const authStateChangedListener = (callback) =>
+export const authStateChangedListener = (callback: NextOrObserver<User>) =>
   onAuthStateChanged(auth, callback);
 
-export const getCurrentUser = () => {
+export const getCurrentUser = (): Promise<User | null> => {
   return new Promise((resolve, reject) => {
     const unsubscribe = onAuthStateChanged(
       auth,

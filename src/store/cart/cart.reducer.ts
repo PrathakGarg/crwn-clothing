@@ -1,7 +1,7 @@
 import { AnyAction } from "redux";
 
 import { CartItem } from "./cart.types";
-import { setToggle, addItemToCart } from "./cart.action";
+import { setToggle, updateCart } from "./cart.action";
 
 export type CartState = {
   toggled: boolean
@@ -16,7 +16,7 @@ const CART_INITIAL_STATE = {
 export const cartReducer = (state = CART_INITIAL_STATE, action: AnyAction) => {
   if (setToggle.match(action)) 
     return { ...state, toggled: action.payload };
-  if (addItemToCart.match(action))
+  if (updateCart.match(action))
     return { ...state, cartItems: action.payload };
 
   return state;
