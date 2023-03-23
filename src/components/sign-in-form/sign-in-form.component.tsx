@@ -1,12 +1,14 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux"; 
+import { useState, FormEvent, ChangeEvent, useEffect } from "react";
+import { AuthError, AuthErrorCodes } from "firebase/auth";
+import { useDispatch, useSelector } from "react-redux"; 
 
 import FormInput from "../form-input/form-input.component";
 import Button, { BUTTON_CLASSES } from "../Button/button.component";
 
-import { googleSignInStart, emailSignInStart } from "../../store/user/user.action.ts";
+import { googleSignInStart, emailSignInStart } from "../../store/user/user.action";
+import { selectUserError } from "../../store/user/user.selector";
 
-import "./sign-in-form.styles.scss";
+import { SignInContainer, ButtonContainer } from "./sign-in-form.styles";
 
 const defaultFormFields = {
   email: "",
@@ -15,6 +17,17 @@ const defaultFormFields = {
 
 const SignInForm = () => {
   const dispatch = useDispatch();
+
+  const error = useSelector(selectUserError);
+  useEffect(() => {
+    if (error) {
+      if ((error as AuthError).code === AuthErrorCodes.USER_DELETED)
+          alert("Account with this email address does not exist");
+      else if ((error as AuthError).code === AuthErrorCodes.INVALID_PASSWORD)
+          alert("Email address or password is incorrect");
+      console.error("Error:", error)
+    }
+  }, [error])
 
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
@@ -27,34 +40,20 @@ const SignInForm = () => {
     setFormFields(defaultFormFields)
   }
 
-  const handleChange = (event) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    try {
-      dispatch(emailSignInStart(email, password))
-      resetFormFields();
-    } catch (error) {
-      switch (error.code) {
-        case "auth/user-not-found":
-          alert("Account with this email address does not exist");
-          break;
-        case "auth/wrong-password":
-          alert("Email address or password is incorrect");
-          break;
-        default:
-          alert("Some error occured");
-          console.error("Error:", error.message)
-      }
-    }
+    dispatch(emailSignInStart(email, password))
+    resetFormFields();
   };
 
   return (
-    <div className="sign-in-container">
+    <SignInContainer>
       <h2>I already have an account</h2>
       <span>Sign in with you email and password</span>
       <form onSubmit={handleSubmit}>
@@ -75,18 +74,18 @@ const SignInForm = () => {
           value={password}
         />
 
-        <div className="button-div">
+        <ButtonContainer>
           <Button type="submit">Sign in</Button>
           <Button type="button" onClick={handleGoogleSignIn} buttonType={BUTTON_CLASSES.google}>
             Sign In with Google
           </Button>
-        </div>
+        </ButtonContainer>
       </form>
 
       {/* <button onClick={signInWithGoogleRedirect}>
         Sign In with Google (Redirect)
       </button> */}
-    </div>
+    </SignInContainer>
   );
 };
 

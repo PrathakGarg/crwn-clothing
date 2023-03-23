@@ -1,12 +1,14 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState, useEffect, FormEvent, ChangeEvent } from "react";
+import { AuthError, AuthErrorCodes } from "firebase/auth";
+import { useDispatch, useSelector } from "react-redux";
 
 import FormInput from "../form-input/form-input.component";
 import Button from "../Button/button.component";
 
-import { signUpStart } from "../../store/user/user.action.ts";
+import { signUpStart } from "../../store/user/user.action";
+import { selectUserError } from "../../store/user/user.selector";
 
-import "./sign-up-form.styles.scss";
+import { SignUpContainer } from "./sign-up-form.styles";
 
 const defaultFormFields = {
   displayName: "",
@@ -18,6 +20,19 @@ const defaultFormFields = {
 const SignUp = () => {
   const dispatch = useDispatch();
 
+  const error = useSelector(selectUserError);
+  useEffect(() => {
+    if (error) {
+      if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
+        alert("Email already in use");
+      }
+      console.log(
+        "Error occured creating from email and password",
+        error
+      );
+    }
+  }, [error])
+
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
@@ -25,42 +40,34 @@ const SignUp = () => {
     setFormFields(defaultFormFields)
   }
 
-  const handleChange = (event) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
     setFormFields({ ...formFields, [name]: value });
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    var { displayName, email, password, confirmPassword } = event.target;
-    displayName = displayName.value;
-    email = email.value;
-    password = password.value;
-    confirmPassword = confirmPassword.value;
+    // var { displayName, email, password, confirmPassword } = event.target;
+    // displayName = displayName.value;
+    // email = email.value;
+    // password = password.value;
+    // confirmPassword = confirmPassword.value;
 
     if (password !== confirmPassword) {
       alert("Passwords don't match");
       return;
     }
 
-    try {
-      dispatch(signUpStart(email, password, {displayName}));
-      resetFormFields();
-    } catch (error) {
-      if (error.code === "auth/email-already-in-use") {
-        alert("Email already in use");
-      }
-      console.log(
-        "Error occured creating from email and password",
-        error.message
-      );
-    }
+
+    dispatch(signUpStart(email, password, {displayName}));
+    resetFormFields();
+
   };
 
   return (
-    <div className="sign-up-container">
+    <SignUpContainer>
       <h2>I do not have an account</h2>
       <span>Sign Up with Email and Password</span>
       <form onSubmit={handleSubmit}>
@@ -102,7 +109,7 @@ const SignUp = () => {
 
         <Button type="submit">Sign Up</Button>
       </form>
-    </div>
+    </SignUpContainer>
   );
 };
 
