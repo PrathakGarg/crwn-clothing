@@ -9,3 +9,8 @@ export const selectCurrentUser = createSelector(
     [selectUserReducer],
     (userState) => userState.currentUser
 )
+
+export const selectUserError = createSelector(
+    [selectUserReducer],
+    (userState) => userState.error
+)
