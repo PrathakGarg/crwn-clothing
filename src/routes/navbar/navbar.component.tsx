@@ -7,11 +7,11 @@ import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component
 
 import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
 
-import { selectCurrentUser } from "../../store/user/user.selector.ts";
-import { selectToggleState } from "../../store/cart/cart.selector.ts";
-import { signOutStart } from "../../store/user/user.action.ts";
+import { selectCurrentUser } from "../../store/user/user.selector";
+import { selectToggleState } from "../../store/cart/cart.selector";
+import { signOutStart } from "../../store/user/user.action";
 
-import { NavbarContainer, LogoContainer, NavLinks, NavLink } from "./navbar.styles.jsx";
+import { NavbarContainer, LogoContainer, NavLinks, NavLink } from "./navbar.styles";
 
 const Navbar = () => {
   const dispatch = useDispatch();
