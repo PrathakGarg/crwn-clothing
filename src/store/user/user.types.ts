@@ -22,4 +22,4 @@ export type SignInCredentials = {
 
 export type SignUpCredentials = SignInCredentials & { additionalInfo?: AdditionalInfo }
 
-export type User = UserData | { id: string }
+export type User = UserData & { id: string }

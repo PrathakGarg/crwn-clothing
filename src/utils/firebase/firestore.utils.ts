@@ -17,9 +17,9 @@ export type UserDocObject = {
 }
 
 export type UserData = {
-  displayName: string | null,
-  email: string | null,
-  created_at: Date | null,
+  displayName?: string,
+  email?: string,
+  created_at?: Date,
   exists?: boolean
 }
 
@@ -71,9 +71,9 @@ export const getUserDocumentFromAuth = async (userAuth: User): Promise<UserDocOb
 
 export const getUserDetails = async (userDocRef: DocumentReference): Promise<UserData> => {
   let userData = {
-    created_at: null,
-    displayName: null,
-    email: null,
+    created_at: undefined,
+    displayName: undefined,
+    email: undefined,
     exists: false
   } as UserData
 
