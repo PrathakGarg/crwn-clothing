@@ -5,7 +5,7 @@ import { addItemToCart, removeItemFromCart, removeProduct } from "../../store/ca
 import { selectCartItems } from "../../store/cart/cart.selector";
 import { CartItem } from "../../store/cart/cart.types";
 
-import "./checkout-item.styles.scss";
+import { CheckoutItemContainer, ImageContainer, Name, Price, Quantity, Arrow, Value, RemoveButton } from  "./checkout-item.styles";
 
 type CheckoutItemProps = {
   product: CartItem
@@ -20,20 +20,19 @@ const CheckoutItem: FC<CheckoutItemProps> = memo(({ product }) => {
   const clearItemHandler = () => dispatch(removeProduct(cartItems, product));
 
   return (
-    <div className="checkout-item-container">
-      <div className="image-container">
+    <CheckoutItemContainer>
+      <ImageContainer>
         <img src={product.imageUrl} alt={product.name} />  
-      </div>
-      <div className="name">{product.name}</div>
-      <div className="quantity">
-        <div className="arrow" onClick={removeItemHandler}>&#10094;</div>
-        <span className="value">{product.quantity}</span>
-        <div className="arrow" onClick={addItemHandler}>&#10095;</div>
-      </div>
-      <div className="price">{product.price}
-      </div>
-      <div className="remove-button" onClick={clearItemHandler}>&#10005;</div>
-    </div>
+      </ImageContainer>
+      <Name>{product.name}</Name>
+      <Quantity>
+        <Arrow onClick={removeItemHandler}>&#10094;</Arrow>
+        <Value>{product.quantity}</Value>
+        <Arrow onClick={addItemHandler}>&#10095;</Arrow>
+      </Quantity>
+      <Price>{product.price}</Price>
+      <RemoveButton onClick={clearItemHandler}>&#10005;</RemoveButton>
+    </CheckoutItemContainer>
   );
 });
 
