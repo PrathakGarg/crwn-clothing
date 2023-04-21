@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, HashRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { Elements } from "@stripe/react-stripe-js";
@@ -19,12 +19,21 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
-          <Elements stripe={stripePromise}>
-            <GlobalStyle />
-            <App />
-          </Elements>
-        </BrowserRouter>
+        {process.env.REACT_APP_IS_GITHUB_PAGES === "true" ? (
+          <HashRouter>
+            <Elements stripe={stripePromise}>
+              <GlobalStyle />
+              <App />
+            </Elements>
+          </HashRouter>
+        ) : (
+          <BrowserRouter basename={process.env.PUBLIC_URL}>
+            <Elements stripe={stripePromise}>
+              <GlobalStyle />
+              <App />
+            </Elements>
+          </BrowserRouter>
+        )}
       </PersistGate>
     </Provider>
   </React.StrictMode>
