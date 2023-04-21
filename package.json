@@ -2,7 +2,7 @@
   "name": "crwn-clothing-v2",
   "version": "0.1.0",
   "homepage": "https://prathakgarg.github.io/crwn-clothing",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@redux-saga/core": "^1.2.2",
     "@stripe/react-stripe-js": "^1.16.1",
