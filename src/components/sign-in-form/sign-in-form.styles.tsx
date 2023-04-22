@@ -29,4 +29,9 @@ export const SignInContainer = styled.div`
 export const ButtonContainer = styled.div`
     display: flex;
     gap: 20px;
+
+    @media screen and (max-width: 800px) {
+        flex-direction: column;
+        gap: 10px;
+    }
 `
