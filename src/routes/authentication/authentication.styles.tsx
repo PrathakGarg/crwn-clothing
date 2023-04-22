@@ -14,7 +14,7 @@ export const AuthPageContainer = styled.div`
     }
     
     @media screen and (max-width: 800px) {
-        width: 100vw;
+        width: 90vw;
         padding: 0 0px;
         margin: 0;
     }
@@ -25,5 +25,6 @@ export const AuthPageContainer = styled.div`
 
     @media screen and (max-width: 400px) {
         gap: 20px;
+        padding: 0;
     }
 `
