@@ -1,7 +1,7 @@
 import { AnyAction, PayloadAction } from "@reduxjs/toolkit";
 import { User as UserAuth } from "firebase/auth";
 
-import { USER_ACTION_TYPES, SignInCredentials, SignUpCredentials, User } from "./user.types";
+import { SignInCredentials, SignUpCredentials, User } from "./user.types";
 import { AdditionalInfo } from "../../utils/firebase/firestore.utils";
 
 export type SetCurrentUser = PayloadAction<User>

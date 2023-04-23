@@ -58,20 +58,17 @@ export const userSlice = createSlice({
   },
 });
 
-export const { checkUserSession, googleSignInStart, emailSignInStart, signUpStart, signOutStart, signInSuccess, signUpSuccess, signOutSuccess, signInFailed, signOutFailed, signUpFailed } = userSlice.actions
+export const { 
+  checkUserSession, 
+  googleSignInStart, 
+  emailSignInStart, 
+  signUpStart, 
+  signOutStart, 
+  signInSuccess, 
+  signUpSuccess, 
+  signOutSuccess, 
+  signInFailed, 
+  signOutFailed, 
+  signUpFailed } = userSlice.actions
 
 export const userReducer = userSlice.reducer
-
-// export const userReducer = (state = INITIAL_STATE, action: AnyAction) => {
-
-//   if (googleSignInStart.match(action) || emailSignInStart.match(action) || signUpStart.match(action) || signOutStart.match(action))
-//     return {...state, isLoading: true}
-//   if (signInSuccess.match(action))
-//     return {...state, currentUser: action.payload, isLoading: false, error: null}
-//   if (signOutSuccess.match(action))
-//     return {...state, currentUser: null, isLoading: false, error:null}
-//   if (signInFailed.match(action) || signUpFailed.match(action) || signOutFailed.match(action))
-//     return {...state, error: action.payload, isLoading: false}
-  
-//   return state
-// };
