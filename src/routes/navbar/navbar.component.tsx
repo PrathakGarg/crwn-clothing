@@ -9,7 +9,7 @@ import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
 
 import { selectCurrentUser } from "../../store/user/user.selector";
 import { selectToggleState } from "../../store/cart/cart.selector";
-import { signOutStart } from "../../store/user/user.action";
+import { signOutStart } from "../../store/user/user.reducer";
 
 import { NavbarContainer, LogoContainer, NavLinks, NavLink } from "./navbar.styles";
 

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import FormInput from "../form-input/form-input.component";
 import Button, { BUTTON_CLASSES } from "../Button/button.component";
 
-import { googleSignInStart, emailSignInStart } from "../../store/user/user.action";
+import { googleSignInStart, emailSignInStart } from "../../store/user/user.reducer";
 import { selectUserError } from "../../store/user/user.selector";
 
 import { SignInContainer, ButtonContainer } from "./sign-in-form.styles";
@@ -48,7 +48,7 @@ const SignInForm = () => {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    dispatch(emailSignInStart(email, password))
+    dispatch(emailSignInStart({email, password}))
     resetFormFields();
   };
 
