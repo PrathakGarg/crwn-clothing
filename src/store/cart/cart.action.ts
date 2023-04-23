@@ -1,12 +1,13 @@
-import { CART_ACTION_TYPES, CartItem } from "./cart.types";
+import { PayloadAction } from "@reduxjs/toolkit";
+
+import { CartItem } from "./cart.types";
 import { CategoryItem } from "../categories/categories.types";
+import { updateCart } from "./cart.reducer";
 
-import { createAction, ActionWithPayload, withMatcher } from "../../utils/reducer/reducer.utils";
+export type SetToggle = PayloadAction<boolean>
+export type UpdateCart = PayloadAction<CartItem[]>
 
-export type SetToggle = ActionWithPayload<CART_ACTION_TYPES.SET_VISIBILITY, boolean>
-export type UpdateCart = ActionWithPayload<CART_ACTION_TYPES.UPDATE_CART_ITEMS, CartItem[]>
-
-const addItemCart = (cartItems: CartItem[], product: CategoryItem): CartItem[] => {
+export const addItemCart = (cartItems: CartItem[], product: CategoryItem): CartItem[] => {
   const item = cartItems.find((item) => item.id === product.id);
 
   if (item) item.quantity++;
@@ -15,7 +16,7 @@ const addItemCart = (cartItems: CartItem[], product: CategoryItem): CartItem[] =
   return [...cartItems];
 };
 
-const removeItemCart = (cartItems: CartItem[], product: CategoryItem): CartItem[] => {
+export const removeItemCart = (cartItems: CartItem[], product: CategoryItem): CartItem[] => {
   const item = cartItems.find((item) => item.id === product.id);
 
   if (item) {
@@ -28,20 +29,13 @@ const removeItemCart = (cartItems: CartItem[], product: CategoryItem): CartItem[
   return [...cartItems];
 };
 
-const clearProduct = (cartItems: CartItem[], product: CategoryItem): CartItem[] => {
+export const clearProduct = (cartItems: CartItem[], product: CategoryItem): CartItem[] => {
   const item = cartItems.find((item) => item.id === product.id);
 
   if (item)
     return [...cartItems.filter((cartItem) => cartItem.id !== product.id)];
   return [...cartItems];
 };
-
-export const setToggle = withMatcher((value: boolean): SetToggle => createAction(
-  CART_ACTION_TYPES.SET_VISIBILITY,
-  value
-))
-
-export const updateCart = withMatcher((cartItems: CartItem[]): UpdateCart => createAction(CART_ACTION_TYPES.UPDATE_CART_ITEMS, cartItems))
 
 export const addItemToCart = (cartItems: CartItem[], product: CategoryItem): UpdateCart => {
   const newCartItems = addItemCart(cartItems, product);

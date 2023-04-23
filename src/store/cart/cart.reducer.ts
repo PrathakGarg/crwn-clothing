@@ -1,7 +1,7 @@
-import { AnyAction } from "redux";
+import { createSlice } from "@reduxjs/toolkit";
 
 import { CartItem } from "./cart.types";
-import { setToggle, updateCart } from "./cart.action";
+import { SetToggle, UpdateCart } from "./cart.action";
 
 export type CartState = {
   readonly toggled: boolean
@@ -13,11 +13,19 @@ const CART_INITIAL_STATE: CartState = {
   cartItems: [] as CartItem[],
 };
 
-export const cartReducer = (state = CART_INITIAL_STATE, action: AnyAction) => {
-  if (setToggle.match(action)) 
-    return { ...state, toggled: action.payload };
-  if (updateCart.match(action))
-    return { ...state, cartItems: action.payload };
+export const cartSlice = createSlice({
+  name: 'cart',
+  initialState: CART_INITIAL_STATE,
+  reducers: {
+    setToggle: (state, action: SetToggle) => {
+      state.toggled = action.payload;
+    },
+    updateCart: (state, action: UpdateCart) => {
+      state.cartItems = action.payload;
+    }
+  }
+});
 
-  return state;
-};
+export const { setToggle, updateCart } = cartSlice.actions;
+
+export const cartReducer = cartSlice.reducer;
