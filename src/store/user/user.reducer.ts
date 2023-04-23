@@ -59,7 +59,6 @@ export const userSlice = createSlice({
 });
 
 export const { checkUserSession, googleSignInStart, emailSignInStart, signUpStart, signOutStart, signInSuccess, signUpSuccess, signOutSuccess, signInFailed, signOutFailed, signUpFailed } = userSlice.actions
-console.log(userSlice.actions)  
 
 export const userReducer = userSlice.reducer
 
